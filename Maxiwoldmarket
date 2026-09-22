@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaxWorld Market - Bamako</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white">
+<header class="p-5 flex justify-between max-w-6xl mx-auto">
+<b>MaxWorld Market</b>
+<button onclick="let p=prompt('Mot de passe:');if(p=='hamar7239'){document.getElementById('pub').classList.add('hidden');document.getElementById('pat').classList.remove('hidden')}" class="bg-white text-black px-4 py-2 rounded-full text-sm">Patron Hamar</button>
+</header>
+
+<div id="pub" class="max-w-6xl mx-auto p-6 text-center">
+<h1 class="text-5xl font-black leading-tight">Tout le marché<br>de <span style="color:#FFD600">Bamako</span><br>en 1 clic.</h1>
+<p class="text-zinc-400 mt-4">1000F/mois - 7 jours gratuits - WhatsApp 72398723</p>
+
+<div class="bg-zinc-900 rounded-3xl p-6 mt-10 max-w-md mx-auto border border-zinc-800">
+<h3 class="font-bold text-left">Devenir Vendeur</h3>
+<input id="nom" placeholder="Nom boutique" class="w-full mt-4 bg-black border border-zinc-700 rounded-xl p-4">
+<input id="tel" placeholder="WhatsApp" class="w-full mt-3 bg-black border border-zinc-700 rounded-xl p-4">
+<button onclick="let n=document.getElementById('nom').value,t=document.getElementById('tel').value;if(!n||!t)return alert('Remplis tout');let v=JSON.parse(localStorage.getItem('mw')||'[]');v.push({n,t,d:new Date().toLocaleDateString(),p:false});localStorage.setItem('mw',JSON.stringify(v));alert('Inscrit! 7 jours gratuit');location.reload()" class="w-full mt-4 bg-[#FFD600] text-black font-black py-4 rounded-xl">S'INSCRIRE</button>
+</div>
+
+<div id="boutiques" class="grid grid-cols-2 gap-4 mt-10 text-left"></div>
+</div>
+
+<div id="pat" class="hidden max-w-6xl mx-auto p-6">
+<h1 class="text-3xl font-black">Dashboard Patron - Hamar 72398723</h1>
+<div id="liste" class="mt-6"></div>
+<button onclick="document.getElementById('pat').classList.add('hidden');document.getElementById('pub').classList.remove('hidden')" class="mt-6 text-zinc-500">Retour</button>
+</div>
+
+<script>
+let V=JSON.parse(localStorage.getItem('mw')||'[]');
+document.getElementById('boutiques').innerHTML=V.length?V.map(x=>`<div class="bg-zinc-900 p-4 rounded-2xl"><b>${x.n}</b><br><small class="text-zinc-500">${x.t}</small></div>`).join(''):'<p class="col-span-2 text-zinc-500">Aucune boutique. Sois le premier!</p>';
+document.getElementById('liste').innerHTML=V.map(x=>`<div class="bg-zinc-900 p-4 rounded-xl mb-2 flex justify-between"><span>${x.n} - ${x.t} - ${x.d}</span><span>${x.p?'PAYÉ':'DOIT 1000F'}</span></div>`).join('');
+</script>
+</body>
+</html>
